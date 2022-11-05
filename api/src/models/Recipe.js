@@ -7,13 +7,34 @@ module.exports = (sequelize) => {
     "recipe",
     {
       ID: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        set(value) {
+          this.setDataValue(
+            "name",
+            value
+              .split("")
+              .map((let) => let.toLowerCase())
+              .join("")
+          );
+        },
+        get() {
+          let value = this.getDataValue("name");
+          return value
+            .split(" ")
+            .map((el) =>
+              el
+                .split("")
+                .map((let, idx) => (idx == 0 ? let.toUpperCase() : let))
+                .join("")
+            )
+            .join(" ");
+        },
       },
       summary: {
         type: DataTypes.STRING,
@@ -23,7 +44,7 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
       },
       steps: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
     },
     {
