@@ -1,18 +1,61 @@
-const { Recipe, Op } = require("../../db");
+const { Diet, Recipe, Op } = require("../../db");
 
 const postRecipe = async (querys) => {
-  const { ID, name, summary, healt_score, steps } = querys;
+  const { name, summary, healt_score, steps } = querys;
 
-  if (!ID || !name || !summary) throw new Error("Error, insufficient data");
+  if (!name || !summary) throw new Error("Error, insufficient data");
   try {
-    const newR = Recipe.create({
-      ID,
+    const newR = await Recipe.create({
       name,
       summary,
       healt_score,
       steps,
     });
     return newR;
+  } catch (error) {
+    throw error;
+  }
+};
+const postRecipePrueba = async (querys) => {
+  const { name, summary, healt_score, steps, diets } = querys;
+
+  if (!name || !summary) throw new Error("Error, insufficient data");
+  try {
+    const newR = await Recipe.create({
+      name,
+      summary,
+      healt_score,
+      steps,
+    });
+
+    // Hasta ahora Diets tiene que tener strings iguales
+
+    const fDiets = await Diet.findAll({
+      where: {
+        name: {
+          [Op.or]: [...diets],
+        },
+      },
+    });
+    await newR.setDiets(fDiets);
+
+    return newR;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getPrueba = async () => {
+  try {
+    const all = await Recipe.findAll({
+      include: [
+        {
+          model: Diet,
+          through: { attributes: [] },
+        },
+      ],
+    });
+    return all;
   } catch (error) {
     throw error;
   }
@@ -58,8 +101,39 @@ const getRecipesComplex = async (ID, querys) => {
   }
 };
 
+const getDiets = async () => {
+  const dietsInitial = [
+    "Gluten Free",
+    "Ketegonic",
+    "Vegetarian",
+    "Lacto-Vegetarian",
+    "Ovo-Vegetarian",
+    "Vegan",
+    "Pescetarian",
+    "Paleo",
+    "Primal",
+    "Low FODMAP",
+    "Whole30",
+  ].map((name, idx) => {
+    return { name: name };
+  });
+  try {
+    let diets = Diet.findAll();
+    if (diets.length > 0) return diets;
+    else {
+      diets = await Diet.bulkCreate(dietsInitial);
+      return diets;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   postRecipe,
   getRecipes,
   getRecipesComplex,
+  getDiets,
+  postRecipePrueba,
+  getPrueba,
 };

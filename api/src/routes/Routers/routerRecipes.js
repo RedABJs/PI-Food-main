@@ -11,7 +11,28 @@ routerRecipes.post("/", async (req, res) => {
     const newRecipe = await Functions.postRecipe(req.body);
     res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(400).json(e.message || error);
+    res.status(400).json(error.message || error);
+  }
+});
+
+routerRecipes.post("/prueba", async (req, res) => {
+  //Código aquí
+  // Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body
+  // Crea una receta en la base de datos relacionada con sus tipos de dietas
+  try {
+    const newRecipe = await Functions.postRecipePrueba(req.body);
+    res.status(201).json(newRecipe);
+  } catch (error) {
+    res.status(400).json(error.message || error);
+  }
+});
+
+routerRecipes.get("/prueba", async (req, res) => {
+  try {
+    const all = await Functions.getPrueba();
+    res.status(200).json(all);
+  } catch (error) {
+    res.status(404).json(error.message);
   }
 });
 
