@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
       },
       steps: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.JSON),
       },
     },
     {
