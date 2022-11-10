@@ -1,10 +1,10 @@
 .App {
   padding: 0;
   margin: 0;
-  height: 100vh;
+  height: fit-content;
   text-align: center;
-  background-image: url("./imgs/vegetables-seamless.jpg");
-  background-size: cover;
+  background-image: url("./assets/vegetables-seamless.jpg");
+  background-size: contain ;
 }
 
 

@@ -1,0 +1,38 @@
+.card-container{
+    background-color: white;
+    box-shadow: 2px 2px 5px gray;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 225px;
+    height: 340px;
+}
+.card-container hr{
+    width: 80%;
+    margin: 15px 0px 15px 22.5px;
+}
+.recipe-image{
+    padding: 5px;
+    height: 160px;
+}
+.recipe-title{
+    margin-left: 5%;
+    width: 90%;
+    height: 42px;
+    text-align: center;
+    justify-content: center;
+}
+.recipe-diets{
+    padding: 5px 5px 10px 5px;
+    display: flex;
+    margin: 0 15px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.recipe-diets li{
+    font-size: 0.8rem;
+    margin-inline: 0.8rem;
+}
