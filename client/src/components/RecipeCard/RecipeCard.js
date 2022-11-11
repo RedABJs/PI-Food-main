@@ -9,7 +9,7 @@ const recipeCard = ({ title, diets, image }) => {
       <hr />
       <ul className="recipe-diets">
         {diets.map((diet) => (
-          <li>{diet}</li>
+          <li key={`ditem${diet}`}>{diet}</li>
         ))}
       </ul>
     </div>

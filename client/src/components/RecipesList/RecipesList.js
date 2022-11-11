@@ -9,11 +9,12 @@ import * as actions from "../../redux/actions/actions";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import RecipeListFilter from "../RecipeListFilter/RecipeListFilter";
 import LoadingOthers from "../Loading/LoadingOthers/LoadingOthers";
+import FilterButons from "./FilterButtons/FilterButtons";
 
 const RecipesList = () => {
   // ReduxHooks
   const dispatch = useDispatch();
-  const { recipes, currentPage, displayRecipes, limiteRecipes } = useSelector(
+  const { recipes, currentPage, displayRecipes, limitRecipes } = useSelector(
     (state) => state
   );
 
@@ -21,15 +22,8 @@ const RecipesList = () => {
   // QUIERO CUSTOM HOOKS
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(actions.getDisplayRec());
-    }, 2000);
-  }, [recipes, currentPage, limiteRecipes]);
-
-  const onClick = (e) => {
-    e.preventDefault();
-    console.log(displayRecipes, recipes, currentPage);
-  };
+    dispatch(actions.getDisplayRec());
+  }, [recipes, currentPage, limitRecipes]);
 
   if (displayRecipes.length <= 0)
     return (
@@ -42,6 +36,12 @@ const RecipesList = () => {
   return (
     <div className="all-recipes-container">
       <RecipeListFilter />
+      <FilterButons
+        recipes={recipes}
+        currentPage={currentPage}
+        limitRecipes={limitRecipes}
+        displayRecipes={displayRecipes}
+      />
       <div className="recipes-container">
         {displayRecipes.map((recipe) => (
           <RecipeCard
@@ -52,6 +52,12 @@ const RecipesList = () => {
           />
         ))}
       </div>
+      <FilterButons
+        recipes={recipes}
+        currentPage={currentPage}
+        limitRecipes={limitRecipes}
+        displayRecipes={displayRecipes}
+      />
     </div>
   );
 };

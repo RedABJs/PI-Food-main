@@ -18,6 +18,10 @@ const FilterButons = ({
       : dispatch(actions.decrementCp());
   };
 
+  const onPageCLick = (e) => {
+    dispatch(actions.updateCp(e.target.name));
+  };
+
   //  consts
   const pageNumbers = new Array(recipes.length / limitRecipes).fill(1);
 
@@ -27,12 +31,16 @@ const FilterButons = ({
         {"<"}
       </button>
       {pageNumbers.map((el, idx) => (
-        <button name={idx}>{idx}</button>
+        <button key={`pageB${idx}`} name={idx} onClick={onPageCLick}>
+          {idx + 1}
+        </button>
       ))}
       <button
         name="plus"
         onClick={onClick}
-        disabled={displayRecipes.length * currentPage >= recipes.length}
+        disabled={
+          displayRecipes.length * currentPage + limitRecipes >= recipes.length
+        }
       >
         {">"}
       </button>
