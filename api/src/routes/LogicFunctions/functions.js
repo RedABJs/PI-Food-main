@@ -3,14 +3,14 @@ const { API_KEY } = process.env;
 const { fetch } = require("cross-fetch");
 
 const postRecipe = async (properties) => {
-  const { name, summary, healt_score, steps, diets } = properties;
+  const { name, summary, health_score, steps, diets } = properties;
 
   if (!name || !summary || !diets) throw new Error("Error, insufficient data");
   try {
     const newR = await Recipe.create({
       name,
       summary,
-      healt_score,
+      health_score,
       steps,
     });
 
@@ -20,7 +20,7 @@ const postRecipe = async (properties) => {
           name: diet.toLowerCase(),
         },
         default: { name: diet.toLowerCase() },
-      }).then(([user, created]) => user)
+      }).then(([dt, created]) => dt)
     );
 
     let createdDiets = await Promise.all(promises);
@@ -57,7 +57,7 @@ const getRecipes = async (name) => {
           name: rec.name,
           ID: rec.ID,
           summary: rec.summary,
-          healt_score: rec.healt_score,
+          health_score: rec.health_score,
           steps: rec.steps,
           diets: rec.diets.map((dt) => dt.name),
         };
@@ -75,7 +75,7 @@ const getRecipes = async (name) => {
             ID: rec.id,
             name: rec.title,
             summary: rec.summary,
-            healt_score: rec.healthScore,
+            health_score: rec.healthScore,
             image: rec.image,
             diets: rec.diets,
             steps: [...rec.analyzedInstructions]
@@ -110,7 +110,7 @@ const getRecipes = async (name) => {
             name: diet.toLowerCase(),
           },
           default: { name: diet.toLowerCase() },
-        }).then(([user, created]) => user)
+        }).then(([dt, created]) => dt)
       );
 
       await Promise.all(promises);
@@ -134,7 +134,7 @@ const getRecipes = async (name) => {
           ID: rec.id,
           name: rec.title,
           summary: rec.summary,
-          healt_score: rec.healthScore,
+          health_score: rec.healthScore,
           image: rec.image,
           diets: rec.diets,
           steps: [...rec.analyzedInstructions]
@@ -168,7 +168,7 @@ const getRecipes = async (name) => {
             name: diet.toLowerCase(),
           },
           default: { name: diet.toLowerCase() },
-        }).then(([user, created]) => user)
+        }).then(([dt, created]) => dt)
       );
 
       await Promise.all(promises);
@@ -190,7 +190,7 @@ const getRecipes = async (name) => {
           name: rec.name,
           ID: rec.ID,
           summary: rec.summary,
-          healt_score: rec.healt_score,
+          health_score: rec.health_score,
           steps: rec.steps,
           diets: rec.diets.map((dt) => dt.name),
         };
@@ -245,7 +245,7 @@ const getRecipesComplex = async (ID, querys) => {
           ID: apiSearch.id,
           name: apiSearch.title,
           summary: apiSearch.summary,
-          healt_score: apiSearch.healthScore,
+          health_score: apiSearch.healthScore,
           image: apiSearch.image,
           diets: apiSearch.diets,
           steps: [...apiSearch.analyzedInstructions]

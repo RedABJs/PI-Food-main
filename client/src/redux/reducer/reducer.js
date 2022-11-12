@@ -29,28 +29,60 @@ const rootReducer = (state = initialState, action) => {
         filteredRecipes: action.payload,
       };
     case FILTER_RECIPES:
-      let { diet, order } = action.payload;
-      if (order && diet) {
-        let filtered = [...state.filteredRecipes]
-          .filter((recipe) => recipe.diets.include(diet))
-          .sort();
-
-        if (order == "z-a") {
-          filtered = filtered.reverse();
-        }
-
-        return {
-          ...state,
-          filteredRecipes: filtered,
+      console.log(action.payload);
+      let { limit, diet, order } = action.payload;
+      let parcialAns = {
+        ...state,
+        currentPage: 0,
+      };
+      if (limit) {
+        parcialAns = {
+          ...parcialAns,
+          limitRecipes: limit,
         };
-      } else if (order && !diet) {
-        let filtered = [...state.filteredRecipes].sort();
-        if (order == "z-a") filtered = filtered.reverse();
-        return {
-          ...state,
-          filteredRecipes: filtered,
+      } else {
+        parcialAns = {
+          ...parcialAns,
+          limitRecipes: 20,
         };
       }
+      if (diet) {
+        let filteredDiet = [...state.recipes].filter((recipe) =>
+          recipe.diets.includes(diet)
+        );
+
+        parcialAns = {
+          ...parcialAns,
+          filteredRecipes: filteredDiet,
+        };
+      } else {
+        parcialAns = {
+          ...parcialAns,
+          filteredRecipes: [...state.recipes],
+        };
+      }
+      if (order) {
+        if (order === "health") {
+          let ordered = [...parcialAns.filteredRecipes].sort(
+            (a, b) => b.health_score - a.health_score
+          );
+          parcialAns = {
+            ...parcialAns,
+            filteredRecipes: ordered,
+          };
+        } else {
+          let ordered = [...parcialAns.filteredRecipes].sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
+          if (order == "z-a") ordered = ordered.reverse();
+          parcialAns = {
+            ...parcialAns,
+            filteredRecipes: ordered,
+          };
+        }
+      }
+      console.log(parcialAns);
+      return parcialAns;
 
     case GET_DISPLAY_REC:
       let sliced = [...state.filteredRecipes].slice(
@@ -69,7 +101,7 @@ const rootReducer = (state = initialState, action) => {
     case UPDATE_CP:
       return {
         ...state,
-        currentPage: action.payload,
+        currentPage: Number(action.payload),
       };
     case INCREMENT_CP:
       return {

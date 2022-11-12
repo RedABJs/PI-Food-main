@@ -14,21 +14,19 @@ import FilterButons from "./FilterButtons/FilterButtons";
 const RecipesList = () => {
   // ReduxHooks
   const dispatch = useDispatch();
-  const { recipes, currentPage, displayRecipes, limitRecipes } = useSelector(
-    (state) => state
-  );
+  let { recipes, currentPage, displayRecipes, limitRecipes, filteredRecipes } =
+    useSelector((state) => state);
 
   // No olvidar intentar modularizar los hooks
   // QUIERO CUSTOM HOOKS
 
   useEffect(() => {
     dispatch(actions.getDisplayRec());
-  }, [recipes, currentPage, limitRecipes]);
+  }, [recipes, filteredRecipes, currentPage, limitRecipes]);
 
   if (displayRecipes.length <= 0)
     return (
       <>
-        <RecipeListFilter />
         <LoadingOthers />;
       </>
     );
@@ -37,10 +35,10 @@ const RecipesList = () => {
     <div className="all-recipes-container">
       <RecipeListFilter />
       <FilterButons
-        recipes={recipes}
+        filteredRecipes={filteredRecipes}
         currentPage={currentPage}
-        limitRecipes={limitRecipes}
         displayRecipes={displayRecipes}
+        limitRecipes={limitRecipes}
       />
       <div className="recipes-container">
         {displayRecipes.map((recipe) => (
@@ -52,12 +50,6 @@ const RecipesList = () => {
           />
         ))}
       </div>
-      <FilterButons
-        recipes={recipes}
-        currentPage={currentPage}
-        limitRecipes={limitRecipes}
-        displayRecipes={displayRecipes}
-      />
     </div>
   );
 };

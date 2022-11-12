@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 import * as actions from "../../../redux/actions/actions";
 
 const FilterButons = ({
-  recipes,
+  filteredRecipes,
   currentPage,
   displayRecipes,
   limitRecipes,
 }) => {
-  //Hooks
+  // //Hooks
+
   const dispatch = useDispatch();
 
   // Functions
@@ -23,7 +24,9 @@ const FilterButons = ({
   };
 
   //  consts
-  const pageNumbers = new Array(recipes.length / limitRecipes).fill(1);
+  const pageNumbers = new Array(
+    Math.ceil(filteredRecipes.length / limitRecipes)
+  ).fill(1);
 
   return (
     <div>
@@ -39,7 +42,8 @@ const FilterButons = ({
         name="plus"
         onClick={onClick}
         disabled={
-          displayRecipes.length * currentPage + limitRecipes >= recipes.length
+          displayRecipes.length * currentPage + limitRecipes >=
+          filteredRecipes.length
         }
       >
         {">"}
