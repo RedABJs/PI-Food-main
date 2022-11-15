@@ -15,14 +15,14 @@ const Home = () => {
   useEffect(() => {
     dispatch(actions.getRecipes());
     dispatch(actions.getDiets());
-  }, []);
+  }, [dispatch]);
 
-  if (recipes.length <= 0)
-    return (
-      <div className="loader-home-container">
-        <LoadingHome />
-      </div>
-    );
+  // if (recipes.length <= 0)
+  //   return (
+  //     <div className="loader-home-container">
+  //       <LoadingHome />
+  //     </div>
+  //   );
 
   return (
     <div className="home-container">

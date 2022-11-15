@@ -211,7 +211,7 @@ const getRecipesComplex = async (ID, querys) => {
     if (!ID) throw new Error("ID not specified");
     let attributes = Object.keys(querys);
     if (attributes.length > 0) {
-      const search = await Recipe.findByPk(ID, {
+      let search = await Recipe.findByPk(ID, {
         attributes: attributes,
         include: [
           {
@@ -220,9 +220,19 @@ const getRecipesComplex = async (ID, querys) => {
           },
         ],
       });
+
+      search = {
+        name: search.name,
+        ID: search.ID,
+        summary: search.summary,
+        health_score: search.health_score,
+        steps: search.steps,
+        diets: search.diets.map((dt) => dt.name),
+      };
+
       return search;
     } else {
-      const search = await Recipe.findByPk(ID, {
+      let search = await Recipe.findByPk(ID, {
         include: [
           {
             model: Diet,
@@ -230,6 +240,15 @@ const getRecipesComplex = async (ID, querys) => {
           },
         ],
       });
+
+      search = {
+        name: search.name,
+        ID: search.ID,
+        summary: search.summary,
+        health_score: search.health_score,
+        steps: search.steps,
+        diets: search.diets.map((dt) => dt.name),
+      };
 
       return search;
     }

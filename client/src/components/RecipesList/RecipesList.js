@@ -22,7 +22,7 @@ const RecipesList = () => {
 
   useEffect(() => {
     dispatch(actions.getDisplayRec());
-  }, [recipes, filteredRecipes, currentPage, limitRecipes]);
+  }, [recipes, filteredRecipes, currentPage, limitRecipes, dispatch]);
 
   if (displayRecipes.length <= 0)
     return (
@@ -44,6 +44,7 @@ const RecipesList = () => {
         {displayRecipes.map((recipe) => (
           <RecipeCard
             key={recipe.ID}
+            ID={recipe.ID}
             title={recipe.name}
             image={recipe.image}
             diets={recipe.diets}

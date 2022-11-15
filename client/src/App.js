@@ -6,22 +6,28 @@ import { Switch, Route } from "react-router-dom";
 // Components
 import Landing from "./components/Landing/Landing";
 import Home from "./components/Home/Home";
-import FilterForm from "./components/RecipeListFilter/FilterForm/FilterForm";
+import NavBar from "./components/NavBar/NavBar";
+import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/">
-          <Landing />
-        </Route>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/pruebas">
-          <FilterForm />
-        </Route>
-      </Switch>
+      <Route exact path="/">
+        <Landing />
+      </Route>
+      <Route path="/app">
+        <NavBar />
+      </Route>
+      <Route exact path="/app/home">
+        <Home />
+      </Route>
+      <Route exact path="/app/create">
+        <CreateRecipe />
+      </Route>
+      <Route exact path="/app/recipes/:id">
+        <RecipeDetails />
+      </Route>
     </div>
   );
 }

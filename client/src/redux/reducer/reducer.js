@@ -28,17 +28,28 @@ const rootReducer = (state = initialState, action) => {
         recipes: action.payload,
         filteredRecipes: action.payload,
       };
+    case GET_RECIPE_DETAILS:
+      return {
+        ...state,
+        recipeDetails: action.payload,
+      };
+    case CREATE_RECIPE:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload],
+      };
     case FILTER_RECIPES:
-      console.log(action.payload);
       let { limit, diet, order } = action.payload;
+
       let parcialAns = {
         ...state,
         currentPage: 0,
       };
+
       if (limit) {
         parcialAns = {
           ...parcialAns,
-          limitRecipes: limit,
+          limitRecipes: Number(limit),
         };
       } else {
         parcialAns = {
@@ -61,6 +72,7 @@ const rootReducer = (state = initialState, action) => {
           filteredRecipes: [...state.recipes],
         };
       }
+
       if (order) {
         if (order === "health") {
           let ordered = [...parcialAns.filteredRecipes].sort(
@@ -81,7 +93,6 @@ const rootReducer = (state = initialState, action) => {
           };
         }
       }
-      console.log(parcialAns);
       return parcialAns;
 
     case GET_DISPLAY_REC:

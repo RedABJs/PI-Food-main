@@ -2,9 +2,10 @@
   padding: 0;
   margin: 0;
   height: fit-content;
-  text-align: center;
-  background-image: url("./assets/vegetables-seamless.jpg");
-  background-size: contain ;
+  background: url("./assets/background_23.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 

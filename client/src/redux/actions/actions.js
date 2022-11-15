@@ -9,14 +9,58 @@ export const UPDATE_CP = "UPDATE_CP";
 export const INCREMENT_CP = "INCREMENT_CP";
 export const DECREMENT_CP = "DECREMENT_CP";
 
-export const getRecipes = () => {
+export const getRecipes = (name) => {
+  if (name) {
+    return async function (dispatch) {
+      const data = await fetch(
+        `http://localhost:3001/recipes?name=${name}`
+      ).then((data) => data.json().catch((e) => console.log(e)));
+      console.log(data);
+      dispatch({
+        type: GET_RECIPES,
+        payload: data,
+      });
+    };
+  } else {
+    console.log("aqui no debi entrar");
+    return async function (dispatch) {
+      const data = await fetch("http://localhost:3001/recipes")
+        .then((data) => data.json())
+        .catch((e) => console.log(e));
+
+      dispatch({
+        type: GET_RECIPES,
+        payload: data,
+      });
+    };
+  }
+};
+
+export const getRecipeDetails = (id) => {
   return async function (dispatch) {
-    const data = await fetch("http://localhost:3001/recipes").then((data) =>
-      data.json().catch((e) => console.log(e))
+    const data = await fetch(`http://localhost:3001/recipes/${id}`).then(
+      (res) => res.json()
     );
     dispatch({
-      type: GET_RECIPES,
+      type: GET_RECIPE_DETAILS,
       payload: data,
+    });
+  };
+};
+
+export const createRecipe = (recipe) => {
+  return async function (dispatch) {
+    const newRecipe = await fetch("http://localhost:3001/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(recipe),
+    }).then((res) => res.json());
+
+    dispatch({
+      type: CREATE_RECIPE,
+      payload: newRecipe,
     });
   };
 };

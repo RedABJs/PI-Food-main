@@ -1,0 +1,47 @@
+.general-create-container{
+    min-height: 100vh;
+}
+
+.container-form{
+    width: 60vw;
+    max-width: 300px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding-bottom: 2em;
+    background-color: wheat;
+    text-align: left;
+}
+fieldset{
+    border: none;
+    padding: 2rem 0;
+    border-bottom: 1px solid black;
+}
+.container-form label{
+    display: block;
+    margin: 0.5rem 0;
+}
+.container-form h3{
+    text-align: center;
+}
+.container-form input, textarea {
+    display: block;
+    width: 100%;
+    margin: auto;
+    min-height: 35px;
+    border: none;
+}
+.container-form button{
+    align-items: center;
+}
+.info-fieldset{
+}
+.steps-fieldset{
+    text-align: center;
+}
+.steps-fieldset textarea{
+    height: max-content;
+    min-height: 100px;
+}
+.diets-fieldset {
+    text-align: center;
+}

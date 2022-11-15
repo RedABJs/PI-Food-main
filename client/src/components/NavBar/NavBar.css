@@ -1,0 +1,9 @@
+.nav-container{
+    display: flex;
+    background-color: white;
+    width: 100%;
+    justify-content: flex-end;
+}
+.nav-container a{
+    margin: 10 10px;
+}
