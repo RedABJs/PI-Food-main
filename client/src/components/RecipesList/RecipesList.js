@@ -7,7 +7,7 @@ import * as actions from "../../redux/actions/actions";
 
 // Components
 import RecipeCard from "../RecipeCard/RecipeCard";
-import RecipeListFilter from "../RecipeListFilter/RecipeListFilter";
+import RecipeListFilter from "./FilterForm/FilterForm";
 import LoadingOthers from "../Loading/LoadingOthers/LoadingOthers";
 import FilterButons from "./FilterButtons/FilterButtons";
 
@@ -33,13 +33,17 @@ const RecipesList = () => {
 
   return (
     <div className="all-recipes-container">
-      <RecipeListFilter />
-      <FilterButons
-        filteredRecipes={filteredRecipes}
-        currentPage={currentPage}
-        displayRecipes={displayRecipes}
-        limitRecipes={limitRecipes}
-      />
+      <div  className="recipelist-filter" >
+        <RecipeListFilter />
+      </div>
+      <div className="recipelist-filterbuttons">
+        <FilterButons
+          filteredRecipes={filteredRecipes}
+          currentPage={currentPage}
+          displayRecipes={displayRecipes}
+          limitRecipes={limitRecipes}
+          />
+      </div>
       <div className="recipes-container">
         {displayRecipes.map((recipe) => (
           <RecipeCard

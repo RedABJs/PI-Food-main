@@ -14,15 +14,13 @@ export const getRecipes = (name) => {
     return async function (dispatch) {
       const data = await fetch(
         `http://localhost:3001/recipes?name=${name}`
-      ).then((data) => data.json().catch((e) => console.log(e)));
-      console.log(data);
+      ).then((data) => data.json()).catch((e) => console.log(e))
       dispatch({
         type: GET_RECIPES,
         payload: data,
       });
     };
   } else {
-    console.log("aqui no debi entrar");
     return async function (dispatch) {
       const data = await fetch("http://localhost:3001/recipes")
         .then((data) => data.json())

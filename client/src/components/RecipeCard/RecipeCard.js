@@ -4,16 +4,22 @@ import "./RecipeCard.css";
 
 const recipeCard = ({ ID, title, diets, image }) => {
   return (
-    <Link to={`/recipes/${ID}`}>
+    <Link className="card-link" to={`/app/recipes/${ID}`}>
       <div className="card-container">
-        <img className="recipe-image" src={image} alt="card" />
-        <h4 className="recipe-title">{title}</h4>
-        <hr />
-        <ul className="recipe-diets">
-          {diets.map((diet) => (
-            <li key={`ditem${diet}`}>{diet}</li>
-          ))}
-        </ul>
+        <div className="recipe-image">
+          <img  src={image} alt="card" />
+        </div>
+        <div className="recipe-title">
+          <h5 >{title}</h5>
+        </div>
+        <hr></hr>
+        <div className="recipe-diets">
+          <ul >
+            {diets.map((diet) => (
+              <li key={`ditem${diet}`}>{diet}</li>
+              ))}
+          </ul>
+        </div>
       </div>
     </Link>
   );

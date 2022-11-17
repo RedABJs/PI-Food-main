@@ -1,9 +1,40 @@
 .nav-container{
     display: flex;
-    background-color: white;
-    width: 100%;
-    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    background-color: #ffe1a8;
+    height:40px;
+    padding: 5px;
+    justify-content: center;
+    color: #793302;
+    z-index: 1;
 }
-.nav-container a{
-    margin: 10 10px;
+.active{
+    position: fixed;
+    width: 100%;
+}
+.nav-link{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    color: inherit;
+    cursor: pointer;
+    height: 100%;
+    margin: 0 20px;
+}
+.nav-img{
+    display: flex;
+    height: 100%;
+    object-fit: contain;
+    align-items: center;
+}
+.nav-img img{
+    max-height: 40px;
+    margin-right: 10px;
+}
+.search-bar{
+    display: flex;
+    align-items: center;
+    margin-left:auto;
+    margin-right: 15px;
 }

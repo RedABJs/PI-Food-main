@@ -26,9 +26,13 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1 className="main-title">Henry Food</h1>
-
-      <h2 className="recipes-title">All Henry Food Recipes</h2>
+      <div className="main-title">
+        <h1>Henry Food</h1>
+      </div>
+      <div className="recipes-title">
+        <h2 className="recipes-title">All Henry Food Recipes</h2>
+      </div>
+      <hr></hr>
       <RecipesList />
     </div>
   );

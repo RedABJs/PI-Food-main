@@ -28,6 +28,7 @@ function App() {
       <Route exact path="/app/recipes/:id">
         <RecipeDetails />
       </Route>
+      <Route path="/pruebas"></Route>
     </div>
   );
 }

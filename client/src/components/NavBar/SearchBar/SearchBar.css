@@ -1,0 +1,29 @@
+.searchbar-form input[name="search"]{
+    height: 20px;
+    border-radius: 5px;
+    margin: 0 2px;
+    padding: 2.5px;
+    background-color: #f1c168;
+    color: #793302;
+    border: none;
+}
+.searchbar-form input[name="search"]:focus{
+    outline: none;
+}
+.searchbar-form button{
+    border: 1px solid #f5d39c;
+    height: 25px;
+    width: 55px;
+    font-weight: 550;
+    color: #faebd2;
+    border-radius: 5px;
+    background-color: #793302;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.searchbar-form button:hover{
+    color: #793302;
+    background-color: #faebd2;
+    border: none;
+    box-shadow: 0 0 5px #793302;
+}

@@ -1,38 +1,69 @@
 .card-container{
-    background-color: white;
-    box-shadow: 2px 2px 5px gray;
+    width: 250px;
+    height: 310px;
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px white;
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    width: 225px;
-    height: 340px;
+    transition: all 0.2s ease-in-out;
 }
 .card-container hr{
     width: 80%;
-    margin: 15px 0px 15px 22.5px;
+    margin-left: 10%;
+    border: 1px solid #793302;
+}
+.card-link{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    color: inherit;
+    cursor: pointer;
+    height: 100%;
+    background: none;
+}
+.card-container:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 10px black;
 }
 .recipe-image{
-    padding: 5px;
-    height: 160px;
+    display: flex;
+    height: 50%;
+    width: 100%;
+    background: none;
+}
+.recipe-image img{
+    width: 100%;
+    border-radius: 5px;
 }
 .recipe-title{
+    color: #793302;
     margin-left: 5%;
+    padding-top: 10px;
     width: 90%;
-    height: 42px;
+    height: 15%;
     text-align: center;
+    align-items: center;
     justify-content: center;
 }
 .recipe-diets{
-    padding: 5px 5px 10px 5px;
     display: flex;
-    margin: 0 15px;
-    align-items: center;
+    padding: 10px 0;
+    margin-left: 5%;
+    width: 90%;
+    height: 20%;
+    color: #793302;
+    align-self: flex-end;
     justify-content: center;
-    flex-direction: row;
+}
+.recipe-diets ul{
+    width: 100%;
+    list-style: disc;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-evenly;
 }
 .recipe-diets li{
-    font-size: 0.8rem;
-    margin-inline: 0.8rem;
+    font-size: 0.7rem;
 }
