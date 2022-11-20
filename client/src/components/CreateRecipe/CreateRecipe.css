@@ -1,47 +1,191 @@
 .general-create-container{
-    min-height: 100vh;
+    display: flex;
+    height: calc(100vh - 50px);
+    margin: 0 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-form{
-    width: 60vw;
-    max-width: 300px;
-    min-width: 300px;
-    margin: 0 auto;
+    width: 300px;
+    min-height: 300px;
+    margin:auto;
     padding-bottom: 2em;
-    background-color: wheat;
     text-align: left;
+    color: #793302;
+    padding: 10px;
+    border: 2px solid #f1dcb4;
+    background-color: #e6ab3d6c;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
 }
 fieldset{
     border: none;
-    padding: 2rem 0;
-    border-bottom: 1px solid black;
+    padding: 10px 5px 5px 5px;
+}
+fieldset hr{
+    width: 100%;
+    margin: 25px auto 10px auto;
+    border: 1px solid #793302;
 }
 .container-form label{
     display: block;
     margin: 0.5rem 0;
+    font-weight: 600;
+}
+.container-form label i{
+    margin-top: 0;
+    margin-left: 5px;
+    font-size: 12px;
+    text-shadow: 0 0 2px white;
 }
 .container-form h3{
+    margin-bottom: 10px;
     text-align: center;
+    font-weight: 700;
+    font-size: 25px;
 }
 .container-form input, textarea {
-    display: block;
-    width: 100%;
-    margin: auto;
+    width: 95%;
+    padding: 5px;
     min-height: 35px;
-    border: none;
+    border: 2px solid #f1ad3f;
+    border-radius: 10px;
+    background-color: #f1dcb4a8;
+    outline: none;
+    color: #793302;
+    font-family: Arial, Helvetica, sans-serif;
 }
-.container-form button{
-    align-items: center;
+.container-form input::placeholder, textarea::placeholder {
+    color: #793302;
+    font-family: Arial, Helvetica, sans-serif;
+    opacity: 0.7;
 }
+
+/* Fieldsets css */
+
 .info-fieldset{
 }
+
+.diets-fieldset {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.diets-fieldset .select-container{
+    margin: 10px 0;
+}
+.diets-fieldset select{
+    height: 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1c168;
+    color: #793302;
+    cursor: pointer;
+    outline: none;
+}
+.diets-fieldset select:hover{
+    outline: auto;
+}
+.diets-fieldset .add-diets-button{
+    height: 20px;
+    width: 60px;
+    border: none;
+    border-radius: 5px;
+    background-color: #793302;
+    color: whitesmoke;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+}
+.diets-fieldset .add-diets-button:hover{
+    color: #793302;
+    background-color: whitesmoke;
+    border: none;
+}
+
+
 .steps-fieldset{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 .steps-fieldset textarea{
     height: max-content;
-    min-height: 100px;
+    min-height: 80px;
+    outline: none;
 }
-.diets-fieldset {
-    text-align: center;
+
+.steps-fieldset .add-delete{
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.created-fieldset{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.last-info{
+    margin-top: 70px;
+    width: 100%;
+}
+.created-loader{
+    margin: 80px 0px 60px 0;
+}
+
+/* Create-Nav-Buttons */
+
+.createSteps{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.next{
+    justify-content: flex-end;
+}
+
+.createSteps button{
+    width: 80px;
+    height: 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: #793302;
+    color: whitesmoke;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.createSteps button:hover{
+    color: #793302;
+    background-color: whitesmoke;
+    border: none;
+    
+}
+.finalCreate button{
+    margin-top: 20px;
+    width: 100%;
+    height: 30px;
+}
+
+.last-info button, .button-link{
+    width: 100%;
+    height: 40px;
+}
+.createSteps[disabled=disabled], button:disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
+/* None Display for Fieldsets */
+
+.noneDisplay{
+    display: none;
 }

@@ -5,7 +5,7 @@ const { fetch } = require("cross-fetch");
 const postRecipe = async (properties) => {
   const { name, summary, health_score, steps, diets } = properties;
 
-  if (!name || !summary || !diets) throw new Error("Error, insufficient data");
+  if (!name || !summary || !diets) throw new Error("Insufficient data");
   try {
     const newR = await Recipe.create({
       name,

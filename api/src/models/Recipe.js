@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       health_score: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
       },
       steps: {
         type: DataTypes.ARRAY(DataTypes.JSON),

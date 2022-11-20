@@ -11,6 +11,7 @@ routerDiets.get("/", async (req, res) => {
     const diets = await Functions.getDiets();
     res.status(200).json(diets);
   } catch (error) {
+    console.log(error)
     res.status(404).json(error.message || error);
   }
 });

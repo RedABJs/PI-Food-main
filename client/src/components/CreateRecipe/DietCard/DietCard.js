@@ -1,4 +1,5 @@
 import React from "react";
+import "./DietCard.css"
 
 const DietCard = ({ diets, deleteFunction }) => {
   const deleteDiet = (e, dietName) => {
@@ -7,12 +8,11 @@ const DietCard = ({ diets, deleteFunction }) => {
   };
 
   return (
-    <div>
+    <div className="createRecipe-dietlist">
       {diets.map((dt, idx) => (
-        <p key={`pdt${idx}`}>
-          {dt}
-          <span onClick={(e) => deleteDiet(e, dt)}> x </span>
-        </p>
+        <div className="dietlist-diet" key={`pdt${idx}`}>
+          <p>{dt}</p><span onClick={(e) => deleteDiet(e, dt)}> X </span> 
+        </div>
       ))}
     </div>
   );

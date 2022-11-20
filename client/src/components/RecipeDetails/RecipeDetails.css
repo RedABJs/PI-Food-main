@@ -1,0 +1,6 @@
+.recipeDetails-container{
+    display: flex;
+    min-height: calc(100vh - 50px);
+    justify-content: center;
+    align-items: center;
+}

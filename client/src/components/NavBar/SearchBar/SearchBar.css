@@ -6,16 +6,18 @@
     background-color: #f1c168;
     color: #793302;
     border: none;
-}
-.searchbar-form input[name="search"]:focus{
     outline: none;
+}
+.searchbar-form input[name="search"]::placeholder{
+    color: #793302;
+    opacity: 0.7;
 }
 .searchbar-form button{
     border: 1px solid #f5d39c;
     height: 25px;
     width: 55px;
     font-weight: 550;
-    color: #faebd2;
+    color: whitesmoke;
     border-radius: 5px;
     background-color: #793302;
     cursor: pointer;
@@ -23,7 +25,7 @@
 }
 .searchbar-form button:hover{
     color: #793302;
-    background-color: #faebd2;
+    background-color: whitesmoke;
     border: none;
     box-shadow: 0 0 5px #793302;
 }

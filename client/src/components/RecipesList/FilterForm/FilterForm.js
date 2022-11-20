@@ -29,7 +29,7 @@ const FilterForm = () => {
   };
 
   return (
-      <form className="form-container" onSubmit={onSubmit}>
+      <form className="filter-form-container" onSubmit={onSubmit}>
         <label className="custom-selector" htmlFor="limit">Show: 
           <select name="limit" onChange={handleChange} value={form.limit}>
             <option className="select-item" value={""}>--Show--</option>

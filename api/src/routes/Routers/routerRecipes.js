@@ -11,7 +11,7 @@ routerRecipes.post("/", async (req, res) => {
     const newRecipe = await Functions.postRecipe(req.body);
     res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(400).json(error.message || error);
+    res.status(400).json({error:error.message||error});
   }
 });
 
@@ -24,7 +24,7 @@ routerRecipes.get("/", async (req, res) => {
     const search = await Functions.getRecipes(name);
     res.status(200).json(search);
   } catch (error) {
-    res.status(404).send(error.message || error);
+    res.status(404).send({error:error.message || error});
   }
 });
 
@@ -38,7 +38,7 @@ routerRecipes.get("/:idReceta", async (req, res) => {
     if (search) return res.status(200).json(search);
     throw new Error("Recipe not found");
   } catch (error) {
-    res.status(404).send(error.message || error);
+    res.status(404).send({error:error.message || error});
   }
 });
 

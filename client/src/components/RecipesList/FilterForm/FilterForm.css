@@ -1,28 +1,27 @@
-.form-container{
+.filter-form-container{
     display: flex;
     width: 90%;
     justify-content: space-between;
     color: #793302;
     margin: 0 0 10px 0;
 }
-.form-container label{
+.filter-form-container label{
+    font-size: 15px;
     font-weight: 450;
     text-shadow: 0 0 1px black;
 }
-.form-container select{
+.filter-form-container select{
     margin: 0 5px;
-    min-width: 150px;
+    min-width: 100px;
     height: 25px;
     border: none;
     border-radius: 5px;
     color: #793302;
     background-color: #f1c168;
     cursor: pointer;
-}
-.form-container select:focus{
     outline: none;
 }
-.form-container button{
+.filter-form-container button{
     width: 90px;
     border: none;
     border-radius: 5px;
@@ -32,7 +31,7 @@
     transition: all 0.2s ease-in-out;
 }
 
-.form-container button:hover{
+.filter-form-container button:hover{
     color: #793302;
     background-color: #faebd2;
     border: none;

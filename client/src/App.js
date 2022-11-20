@@ -9,6 +9,7 @@ import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
+import LoadingPages from "./components/Loading/LoadingPages/LoadingPages";
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
       <Route exact path="/app/recipes/:id">
         <RecipeDetails />
       </Route>
-      <Route path="/pruebas"></Route>
+      <Route path="/pruebas">
+        <LoadingPages />
+      </Route>
     </div>
   );
 }

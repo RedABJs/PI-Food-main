@@ -8,6 +8,9 @@ import {
   FILTER_RECIPES,
   GET_DIETS,
   UPDATE_CP,
+  LOADING,
+  CREATED,
+  NOT_FOUND,
 } from "../actions/actions";
 
 const initialState = {
@@ -18,10 +21,18 @@ const initialState = {
   diets: [],
   currentPage: 0,
   limitRecipes: 20,
+  loading: false,
+  created: false,
+  not_found: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case NOT_FOUND:
+      return {
+        ...state,
+        not_found: action.payload,
+      };
     case GET_RECIPES:
       return {
         ...state,
@@ -37,6 +48,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         recipes: [...state.recipes, action.payload],
+      };
+    case CREATED:
+      return {
+        ...state,
+        created: action.payload,
       };
     case FILTER_RECIPES:
       let { limit, diet, order } = action.payload;
@@ -96,7 +112,7 @@ const rootReducer = (state = initialState, action) => {
       return parcialAns;
 
     case GET_DISPLAY_REC:
-      let sliced = [...state.filteredRecipes].slice(
+      let sliced = /* [...state.filteredRecipes] */ state.filteredRecipes.slice(
         state.currentPage * state.limitRecipes,
         state.currentPage * state.limitRecipes + state.limitRecipes
       );
@@ -108,6 +124,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         diets: action.payload,
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: !state.loading,
       };
     case UPDATE_CP:
       return {
