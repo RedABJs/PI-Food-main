@@ -6,7 +6,7 @@ const LoadingPages = () => {
   return (
     <div className="page-load-container">
       <div className="page-load-img">
-        <img src={icon} />
+        <img src={icon} alt="bowlicon" />
       </div>
       <div className="page-load-txt">
         <p className="p1">L</p>

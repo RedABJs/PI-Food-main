@@ -13,21 +13,16 @@ import * as actions from "../../redux/actions/actions";
 const RecipeDetails = () => {
   let { id } = useParams();
 
-  //   ID: apiSearch.id,
-  //   name: apiSearch.title,
-  //   summary: apiSearch.summary,
-  //   health_score: apiSearch.healthScore,
-  //   image: apiSearch.image,
-  //   diets: apiSearch.diets,
-  //   steps: [...apiSearch.analyzedInstructions]
-
   const dispatch = useDispatch();
 
   const { recipeDetails, not_found } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(actions.getRecipeDetails(id));
-  }, [dispatch]);
+    const cleanUp = () =>
+      dispatch({ type: actions.GET_RECIPE_DETAILS, payload: {} });
+    return cleanUp;
+  }, [dispatch, id]);
 
   if (not_found)
     return (

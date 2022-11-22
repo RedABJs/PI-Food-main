@@ -1,0 +1,38 @@
+.steps-edit-editable{
+    display: flex;
+    flex-direction: column;
+}
+.steps-edit-textarea{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.steps-edit-textarea i{
+    margin: 5px 0px 10px 0;
+    font-size: 13px;
+}
+.steps-edit-editable textarea{
+    margin: 15px 5px 0px 0;
+    min-height: 100px;
+    color: #793302;
+    font-weight: 300;
+    background-color: #f5deb4c5;
+    border: 1px solid #793302;
+    outline: none;
+}
+.steps-edit-editable button{
+    width: 80px;
+    height: 20px;
+    background-color: #793302;
+    color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.steps-edit-editable button:hover{
+    background-color: whitesmoke;
+    color: #793302;
+}

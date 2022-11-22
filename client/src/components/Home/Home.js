@@ -5,6 +5,7 @@ import "./Home.css";
 
 // Recipes List
 import RecipesList from "../RecipesList/RecipesList";
+import OwnRecipeList from "../OwnRecipeList/OwnRecipeList";
 import NotFound from "../Not-Found/Not-Found";
 import LoadingPages from "../Loading/LoadingPages/LoadingPages";
 
@@ -37,7 +38,12 @@ const Home = () => {
           <h1>Henry Food</h1>
         </div>
         <div className="recipes-title">
-          <h2 className="recipes-title">All Henry Food Recipes</h2>
+          <h2>Your Recipes</h2>
+        </div>
+        <hr></hr>
+        <OwnRecipeList />
+        <div className="recipes-title">
+          <h2>All Henry Food Recipes</h2>
         </div>
         <hr></hr>
         <RecipesList />

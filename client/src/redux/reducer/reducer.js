@@ -11,10 +11,13 @@ import {
   LOADING,
   CREATED,
   NOT_FOUND,
+  GET_OWN_RECIPES,
+  DELETE_RECIPE,
 } from "../actions/actions";
 
 const initialState = {
   recipes: [],
+  ownRecipes: [],
   filteredRecipes: [],
   displayRecipes: [],
   recipeDetails: {},
@@ -32,6 +35,20 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         not_found: action.payload,
+      };
+
+    case DELETE_RECIPE:
+      let filtered = state.ownRecipes.filter(
+        (rec) => rec.ID !== action.payload
+      );
+      return {
+        ...state,
+        ownRecipes: filtered,
+      };
+    case GET_OWN_RECIPES:
+      return {
+        ...state,
+        ownRecipes: action.payload,
       };
     case GET_RECIPES:
       return {
@@ -102,7 +119,7 @@ const rootReducer = (state = initialState, action) => {
           let ordered = [...parcialAns.filteredRecipes].sort((a, b) =>
             a.name.localeCompare(b.name)
           );
-          if (order == "z-a") ordered = ordered.reverse();
+          if (order === "z-a") ordered = ordered.reverse();
           parcialAns = {
             ...parcialAns,
             filteredRecipes: ordered,

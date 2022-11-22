@@ -1,7 +1,7 @@
 import "./App.css";
 
 // React-router-Dom
-import { Switch, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 // Components
 import Landing from "./components/Landing/Landing";
@@ -9,7 +9,9 @@ import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
-import LoadingPages from "./components/Loading/LoadingPages/LoadingPages";
+import UpdateForm from "./components/UpdateForm/UpdateForm";
+import OwnRecipes from "./components/OwnRecipes/OwnRecipes";
+import Search from "./components/Search/Search";
 
 function App() {
   return (
@@ -29,8 +31,14 @@ function App() {
       <Route exact path="/app/recipes/:id">
         <RecipeDetails />
       </Route>
-      <Route path="/pruebas">
-        <LoadingPages />
+      <Route exact path="/app/update/:id">
+        <UpdateForm />
+      </Route>
+      <Route exact path="/app/ownrecipes">
+        <OwnRecipes />
+      </Route>
+      <Route exact path="/app/search/:name">
+        <Search />
       </Route>
     </div>
   );

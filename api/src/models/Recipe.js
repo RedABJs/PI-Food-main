@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
         },
       },
       summary: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       health_score: {
@@ -46,6 +46,12 @@ module.exports = (sequelize) => {
       },
       steps: {
         type: DataTypes.ARRAY(DataTypes.JSON),
+      },
+      image: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        defaultValue:
+          "https://cdn.dribbble.com/users/2460221/screenshots/8429684/media/225b2f10d124b2024b90a8e2348a78ee.jpg?compress=1&resize=400x300",
       },
     },
     {

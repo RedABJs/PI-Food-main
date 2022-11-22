@@ -1,8 +1,12 @@
 export const GET_RECIPES = "GET_RECIPES";
 export const FILTER_RECIPES = "FILTER_RECIPES";
 export const GET_DISPLAY_REC = "GET_DISPLAY_REC";
-export const GET_RECIPE_DETAILS = "GET_RECIPE_DETAILS";
 export const GET_DIETS = "GET_DIETS";
+export const GET_OWN_RECIPES = "GET_OWN_RECIPES";
+
+export const GET_RECIPE_DETAILS = "GET_RECIPE_DETAILS";
+export const UPDATE_RECIPE = "UPDATE_RECIPE";
+export const DELETE_RECIPE = "DELETE_RECIPE";
 export const CREATE_RECIPE = "CREATE_RECIPE";
 export const CREATED = "CREATED";
 
@@ -15,6 +19,70 @@ export const DECREMENT_CP = "DECREMENT_CP";
 
 export const notFound = () => {
   return { type: NOT_FOUND };
+};
+
+export const getOwnRecipes = () => {
+  return async function (dispatch) {
+    dispatch({ type: LOADING });
+    await fetch("http://localhost:3001/recipes/own")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) throw new Error(data.error);
+        dispatch({
+          type: GET_OWN_RECIPES,
+          payload: data,
+        });
+      })
+      .catch((e) => {
+        dispatch({
+          type: GET_OWN_RECIPES,
+          payload: [],
+        });
+      });
+    dispatch({ type: LOADING });
+  };
+};
+
+export const deleteRecipe = (id) => {
+  return async function (dispatch) {
+    dispatch({ type: LOADING });
+
+    await fetch(`http://localhost:3001/recipes/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) throw new Error(data.error.message);
+        dispatch({
+          type: DELETE_RECIPE,
+          payload: id,
+        });
+        alert(data.message);
+      })
+      .catch((e) => alert(e.message));
+
+    dispatch({ type: LOADING });
+  };
+};
+
+export const updateRecipe = (id, data) => {
+  return async function (dispatch) {
+    dispatch({ type: LOADING });
+    await fetch(`http://localhost:3001/recipes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) throw new Error(data.error);
+        else dispatch({ type: GET_RECIPE_DETAILS, payload: data });
+      })
+      .catch((e) => alert(e.message));
+    dispatch({ type: LOADING });
+  };
 };
 
 export const getRecipes = (name) => {
@@ -48,7 +116,7 @@ export const getRecipes = (name) => {
       dispatch({ type: NOT_FOUND, payload: false });
       dispatch({ type: LOADING });
 
-      const data = await fetch("http://localhost:3001/recipes")
+      await fetch("http://localhost:3001/recipes")
         .then((res) => res.json())
         .then((data) => {
           if (data.error) throw new Error(data.error);
@@ -119,6 +187,7 @@ export const createRecipe = (recipe) => {
         }
       })
       .catch((e) => {
+        alert(e.message);
         dispatch({
           type: CREATED,
           payload: false,

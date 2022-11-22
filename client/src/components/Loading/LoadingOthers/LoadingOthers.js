@@ -1,8 +1,8 @@
 import React from "react";
 import "./LoadingOthers.css";
 
-const LoadingOthers = () => {
-  return <span className="loader"></span>;
+const LoadingOthers = ({ small }) => {
+  return <span className={`${small ? "loader-small" : "loader"}`}></span>;
 };
 
 export default LoadingOthers;

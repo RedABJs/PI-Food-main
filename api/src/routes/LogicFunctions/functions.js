@@ -2,8 +2,77 @@ const { Diet, Recipe, Op } = require("../../db");
 const { API_KEY } = process.env;
 const { fetch } = require("cross-fetch");
 
+const updateRecipe = async (id, body) => {
+  const { name, summary, health_score, diets, steps } = body;
+
+  let setterObj = {};
+
+  try {
+    const selectedRecipeforDiets = await Recipe.findByPk(id);
+
+    if (!selectedRecipeforDiets) throw new Error("Recipe not found");
+
+    if (diets) {
+      const foundDiets = await Diet.findAll({
+        where: {
+          name: [...diets],
+        },
+      });
+
+      await selectedRecipeforDiets.setDiets(foundDiets);
+    }
+    let selectedRecipe = await Recipe.findByPk(id, {
+      include: [
+        {
+          model: Diet,
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    if (!selectedRecipe) throw new Error("Recipe not found");
+    if (name) setterObj = { ...setterObj, name: name };
+    if (summary) setterObj = { ...setterObj, summary: summary };
+    if (health_score) setterObj = { ...setterObj, health_score: health_score };
+    if (steps) setterObj = { ...setterObj, steps: steps };
+
+    selectedRecipe.set(setterObj);
+
+    await selectedRecipe.save();
+
+    selectedRecipe = {
+      name: selectedRecipe.name,
+      ID: selectedRecipe.ID,
+      summary: selectedRecipe.summary,
+      health_score: selectedRecipe.health_score,
+      steps: selectedRecipe.steps,
+      diets: selectedRecipe.diets.map((dt) => dt.name),
+    };
+
+    return selectedRecipe;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteRecipe = async (id) => {
+  try {
+    if (!id) throw new Error("Id not specified");
+
+    const selectedRecipe = await Recipe.findByPk(id);
+
+    if (!selectedRecipe) throw new Error("Recipe not found");
+    else {
+      await selectedRecipe.destroy();
+      return "Done";
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 const postRecipe = async (properties) => {
-  const { name, summary, health_score, steps, diets } = properties;
+  const { name, summary, health_score, steps, diets, image } = properties;
 
   if (!name || !summary || !diets) throw new Error("Insufficient data");
   try {
@@ -12,8 +81,8 @@ const postRecipe = async (properties) => {
       summary,
       health_score,
       steps,
+      image,
     });
-
     let promises = diets.map((diet) =>
       Diet.findOrCreate({
         where: {
@@ -27,6 +96,37 @@ const postRecipe = async (properties) => {
 
     await newR.addDiets(createdDiets);
     return newR;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getOwnRecipes = async () => {
+  try {
+    let recipes = await Recipe.findAll({
+      include: [
+        {
+          model: Diet,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    if (recipes.length === 0) throw new Error("Recipes not Found");
+
+    recipes = recipes.map((rec) => {
+      return {
+        name: rec.name,
+        ID: rec.ID,
+        summary: rec.summary,
+        health_score: rec.health_score,
+        steps: rec.steps,
+        diets: rec.diets.map((dt) => dt.name),
+        image: rec.image,
+      };
+    });
+    return recipes;
   } catch (error) {
     throw error;
   }
@@ -60,6 +160,7 @@ const getRecipes = async (name) => {
           health_score: rec.health_score,
           steps: rec.steps,
           diets: rec.diets.map((dt) => dt.name),
+          image: rec.image,
         };
       });
 
@@ -193,12 +294,16 @@ const getRecipes = async (name) => {
           health_score: rec.health_score,
           steps: rec.steps,
           diets: rec.diets.map((dt) => dt.name),
+          image: rec.image,
         };
       });
 
       // Uniendo los valores en una sola constante para retornar
 
       const allRecipes = [...recipes, ...apiRecipes];
+
+      if (allRecipes.length == 0) throw new Error(`Recipes not found`);
+
       return allRecipes;
     }
   } catch (error) {
@@ -221,6 +326,8 @@ const getRecipesComplex = async (ID, querys) => {
         ],
       });
 
+      if (!search) throw new Error("Recipe not found");
+
       search = {
         name: search.name,
         ID: search.ID,
@@ -228,6 +335,7 @@ const getRecipesComplex = async (ID, querys) => {
         health_score: search.health_score,
         steps: search.steps,
         diets: search.diets.map((dt) => dt.name),
+        image: search.image,
       };
 
       return search;
@@ -241,6 +349,8 @@ const getRecipesComplex = async (ID, querys) => {
         ],
       });
 
+      if (!search) throw new Error("Recipe not found");
+
       search = {
         name: search.name,
         ID: search.ID,
@@ -248,12 +358,17 @@ const getRecipesComplex = async (ID, querys) => {
         health_score: search.health_score,
         steps: search.steps,
         diets: search.diets.map((dt) => dt.name),
+        image: search.image,
       };
 
       return search;
     }
   } catch (error) {
-    if (error.message == "ID not specified") throw error;
+    if (
+      error.message === "ID not specified" ||
+      error.message === "Recipe not found"
+    )
+      throw error;
     else {
       try {
         let apiSearch = await fetch(
@@ -324,6 +439,9 @@ const getDiets = async () => {
 };
 
 module.exports = {
+  getOwnRecipes,
+  updateRecipe,
+  deleteRecipe,
   postRecipe,
   getRecipes,
   getRecipesComplex,

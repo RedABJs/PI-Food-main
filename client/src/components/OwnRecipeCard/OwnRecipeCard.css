@@ -1,0 +1,117 @@
+.OwnCard-container{
+    display: flex;
+    flex-direction: row;
+    width: 400px;
+    min-height: 140px;
+    height: fit-content;
+    border-radius: 10px;
+    color: #793302;
+    background-color: #f3e7cfcc;
+    border: 1px solid #f1c168;
+    box-shadow: 0px 0px 5px #793302;
+}
+.OwnCard-img-container{
+    position: relative;
+    display: flex;
+}
+.OwnCard-img-container img{
+    display: flex;
+    width: 180px;
+    border-radius: 10px;
+}
+.OwnCard-img-container p{
+    border-radius: 10px;
+    background-color: #f1c16811;
+    box-shadow: 0 0 3px #793302;
+    border-bottom: none;
+    border-left: none;
+    padding: 2px;
+    display: flex;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 600;
+    bottom: 0px;
+}
+.OwnCard-info-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.OwnCard-info-container hr{
+    margin: 5px 0;
+    width: 80%;
+    border: 1px solid #793302;
+}
+.OwnCard-info-container h3{
+    display: flex;
+    margin-top: 10px;
+    width: 90%;
+    text-align: left;
+}
+.OwnCard-info-container p{
+    display: flex;
+    width: 90%;
+    text-align: left;
+    margin: 5px 0;
+}
+
+.OwnCard-container:hover > .ownCard-over{
+    opacity: 1;
+    visibility: visible;
+}
+/* Links */
+.ownCard-over{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    border-radius: 10px;
+    background-color: #f1c168; 
+    width: 400px;
+    height: 140px;  
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+.ownCard-over h3{
+    height: 40%;
+    cursor: default;
+}
+
+.ownCard-Links{
+    display: flex;
+    height: 40%;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-evenly;
+}
+.ownCard-Links button{
+    height: 37px;
+    padding: 0;
+    font-weight: 500;
+}
+.ownCard-Link{
+    margin-bottom: 10px;
+    width: 70px;
+    height: 30px;
+    padding-top: 5px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    color: whitesmoke;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #793302;
+    border: 1px solid whitesmoke;
+    transition: all 0.2s;
+}
+.ownCard-Link:hover{
+    color: #793302;
+    background-color: whitesmoke;
+    border: 1px solid #793302;
+}

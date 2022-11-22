@@ -1,0 +1,21 @@
+.ownRecipes-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0 10%;
+    align-items: center;
+    color: #793302;
+}
+.hr-container   {
+    margin: 20px 0;
+    width: 80%;
+    border: 1px solid #793302;
+}
+.ownRecipes-list{
+    display: flex;
+    margin: 40px 0;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+}

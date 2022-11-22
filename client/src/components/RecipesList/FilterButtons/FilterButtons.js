@@ -1,9 +1,8 @@
 import React from "react";
-import "./FilterButons.css"
+import "./FilterButons.css";
 
 import { useDispatch } from "react-redux";
 import * as actions from "../../../redux/actions/actions";
-
 
 const FilterButons = ({
   filteredRecipes,
@@ -17,7 +16,7 @@ const FilterButons = ({
 
   // Functions
   const onClick = (e) => {
-    e.target.name == "plus"
+    e.target.name === "plus"
       ? dispatch(actions.incrementCp())
       : dispatch(actions.decrementCp());
   };
@@ -33,11 +32,21 @@ const FilterButons = ({
 
   return (
     <div className="filterbuttons-container">
-      <button className="filterbutton" name="less" onClick={onClick} disabled={currentPage <= 0}>
+      <button
+        className="filterbutton"
+        name="less"
+        onClick={onClick}
+        disabled={currentPage <= 0}
+      >
         {"<"}
       </button>
       {pageNumbers.map((el, idx) => (
-        <button className={`filterbutton ${currentPage==idx?"currentpage":""}`} key={`pageB${idx}`} name={idx} onClick={onPageCLick}>
+        <button
+          className={`filterbutton ${currentPage === idx ? "currentpage" : ""}`}
+          key={`pageB${idx}`}
+          name={idx}
+          onClick={onPageCLick}
+        >
           {idx + 1}
         </button>
       ))}

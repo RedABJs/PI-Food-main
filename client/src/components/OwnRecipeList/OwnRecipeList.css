@@ -1,0 +1,29 @@
+.all-ownRecipes-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 15px;
+    gap: 15px;
+    width: 100%;
+    min-height: 310px;
+    justify-content: left;
+    align-items: center;
+}
+.all-OwnrecipesPage-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    align-items: center;
+    gap: 15px;
+}
+.emptyOwnRecipes{
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+    width: 100%;
+    min-height: 100px;
+    justify-content: center;
+    align-items: center;
+    color: #793302;
+}

@@ -1,0 +1,23 @@
+.select-container select{
+    height: 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1c168;
+    color: #793302;
+    cursor: pointer;
+    outline: none;
+    
+}
+.select-container .add-diets-button{
+    height: 20px;
+    width: 60px;
+    border: none;
+    border-radius: 5px;
+    background-color: #793302;
+    color: whitesmoke;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+}

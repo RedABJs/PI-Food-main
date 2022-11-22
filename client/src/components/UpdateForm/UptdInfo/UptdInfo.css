@@ -1,0 +1,28 @@
+.info-edit-editable{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.info-edit-editable{
+    display: flex;
+    text-align: left;
+    font-size: 13px;
+}
+.info-edit-editable label{
+    text-align: left;
+    margin: 10px 0;
+    font-weight: 600;
+}
+.info-edit-editable input, .info-edit-editable textarea{
+    padding: 0 5px;
+    border-radius: 5px;
+    height: 25px;
+    color: #793302;
+    font-weight: 300;
+    background-color: #f5deb4c5;
+    border: 1px solid #793302;
+    outline: none;
+}
+.info-edit-editable textarea{
+    min-height: 100px;
+}

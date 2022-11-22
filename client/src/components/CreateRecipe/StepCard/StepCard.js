@@ -1,5 +1,5 @@
 import React from "react";
-import "./StepCard.css"
+import "./StepCard.css";
 
 const StepCard = ({ steps, deleteFunction }) => {
   // Functions
@@ -13,15 +13,13 @@ const StepCard = ({ steps, deleteFunction }) => {
     <div className="crate-steps-list-container">
       {steps.map((stp, idx) => (
         <div className="create-step-container" key={`stp${idx}`}>
-          <div className="create-step-title" >
+          <div className="create-step-title">
             <h5>Step {idx + 1}</h5>
             <span onClick={(e) => deleteStep(e, stp)}> X</span>
           </div>
           <div className="create-step-content">
             <p>
-              {stp.length >= 40
-                ? `${stp.split("", 40).join("")} ...`
-                : stp}
+              {stp.length >= 40 ? `${stp.split("", 40).join("")} ...` : stp}
             </p>
           </div>
         </div>

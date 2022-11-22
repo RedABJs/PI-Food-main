@@ -17,11 +17,15 @@
 .nav-link{
     display: flex;
     text-decoration: none;
+    justify-content: center;
     align-items: center;
     color: inherit;
+    min-width: 100px;
+    border-radius: 10px;
     cursor: pointer;
     height: 100%;
-    margin: 0 20px;
+    margin: 0 5px;
+    transition: all 0.1s;
 }
 .nav-img{
     display: flex;
@@ -38,4 +42,8 @@
     align-items: center;
     margin-left:auto;
     margin-right: 15px;
+}
+.selected-link{
+    background-color: #ffbf48;
+    font-style: none;
 }

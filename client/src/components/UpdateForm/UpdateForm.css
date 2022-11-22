@@ -1,0 +1,95 @@
+.edit-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #793302;
+}
+.edit-button{
+    width: 100%;
+    text-align: right;
+}
+.edit-button button{
+    width: 80px;
+    height: 25px;
+    margin-top: 10px;
+    background-color: #793302;
+    color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ;
+}
+.edit-button button:hover{
+    color: #793302;
+    background-color: whitesmoke;
+}
+.info-edit{
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    height: fit-content;
+    width: 300px;
+    margin: 10px 0;
+    padding: 5px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #f3e7cfcc;
+    border: 1px solid #f1c168;
+}
+.diets-edit, .steps-edit{
+    display: flex;
+    flex-direction: column;
+    min-height: 125px;
+    height: fit-content;
+    width: 300px;
+    margin: 10px 0;
+    padding: 5px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #f3e7cfcc;
+    border: 1px solid #f1c168;
+}
+.steps-edit-initial{
+    text-align: left;
+}
+.steps-edit-initial p{
+    margin: 10px 0;
+    font-size: 15px;
+}
+.diets-edit-initial{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.diets-edit-initial p{
+    margin: 10px 0;
+}
+.info-edit-inicial{
+    display: flex;
+    flex-direction: column;
+}
+.info-edit-inicial label{
+    text-align: left;
+    margin: 10px 0;
+    font-weight: 600;
+}
+.info-edit-inicial input, .info-edit-inicial textarea{
+    padding: 0 5px;
+    border-radius: 5px;
+    height: 25px;
+    color: #793302;
+    font-weight: 300;
+    background-color: #f1c16800;
+    border: none;
+    border-bottom:1px solid #793302;
+}
+.info-edit-inicial textarea{
+    min-height: 100px;
+    height: fit-content;
+}
+.none{
+    display: none;
+}

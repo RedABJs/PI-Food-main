@@ -1,6 +1,6 @@
 .general-create-container{
     display: flex;
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
     margin: 0 30px;
     justify-content: center;
     align-items: center;

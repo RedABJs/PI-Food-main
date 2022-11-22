@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 
-import { useDispatch } from "react-redux";
-import * as actions from "../../../redux/actions/actions";
+import { Link } from "react-router-dom";
+
+// import { useDispatch } from "react-redux";
+// import * as actions from "../../../redux/actions/actions";
 
 const SearchBar = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [name, setName] = useState("");
 
   const handleChange = (e) => {
@@ -13,20 +15,22 @@ const SearchBar = () => {
     setName(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(actions.getRecipes(name));
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(actions.getRecipes(name));
+  // };
 
   return (
-    <form className="searchbar-form" onSubmit={handleSubmit}>
+    <form className="searchbar-form" /* onSubmit={handleSubmit} */>
       <input
         onChange={handleChange}
         name="search"
         value={name}
         placeholder="Search your recipe here"
       />
-      <button>Search</button>
+      <Link to={`/app/search/${name}`}>
+        <button>Search</button>
+      </Link>
     </form>
   );
 };
