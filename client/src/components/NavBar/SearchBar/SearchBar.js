@@ -21,7 +21,7 @@ const SearchBar = () => {
   // };
 
   return (
-    <form className="searchbar-form" /* onSubmit={handleSubmit} */>
+    <form className="searchbar-form">
       <input
         onChange={handleChange}
         name="search"
@@ -29,7 +29,7 @@ const SearchBar = () => {
         placeholder="Search your recipe here"
       />
       <Link to={`/app/search/${name}`}>
-        <button>Search</button>
+        <button onClick={() => setName("")}>Search</button>
       </Link>
     </form>
   );

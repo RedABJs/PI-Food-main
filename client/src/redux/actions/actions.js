@@ -175,7 +175,6 @@ export const createRecipe = (recipe) => {
       .then((data) => {
         if (data.error) throw new Error(data.error);
         else {
-          console.log(data);
           dispatch({
             type: CREATE_RECIPE,
             payload: data,
@@ -213,13 +212,20 @@ export const getDisplayRec = () => {
 
 export const getDiets = () => {
   return async function (dispatch) {
-    const data = await fetch("http://localhost:3001/diets").then((res) =>
-      res.json().catch((e) => console.log(e))
-    );
+    dispatch({ type: NOT_FOUND, payload: false });
+    dispatch({ type: LOADING });
+    const data = await fetch("http://localhost:3001/diets")
+      .then((res) => res.json())
+      .catch((e) => {
+        dispatch({ type: NOT_FOUND, payload: true });
+        alert(e.message);
+      });
+
     dispatch({
       type: GET_DIETS,
       payload: data,
     });
+    dispatch({ type: LOADING });
   };
 };
 

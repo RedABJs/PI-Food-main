@@ -170,8 +170,72 @@ const getRecipes = async (name) => {
         `https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=${API_KEY}`
       ).then((res) => res.json());
 
-      apiRecipes = apiRecipes.results
-        .map((rec) => {
+      if (Array.isArray(apiRecipes.results)) {
+        apiRecipes = apiRecipes.results
+          .map((rec) => {
+            return {
+              ID: rec.id,
+              name: rec.title,
+              summary: rec.summary,
+              health_score: rec.healthScore,
+              image: rec.image,
+              diets: rec.diets,
+              steps: [...rec.analyzedInstructions]
+                .map((x) => x.steps)
+                .flat()
+                .map((st) => {
+                  return {
+                    number: st.number,
+                    step: st.step,
+                  };
+                }),
+            };
+          })
+          .filter((rec) => rec.name.toLowerCase().includes(name.toLowerCase()));
+
+        // Crear las dietas en la BD
+
+        let apiDiets = apiRecipes
+          .map((dt) => dt.diets)
+          .flat()
+          .reduce((ac, a) => {
+            if (ac.includes(a)) return ac;
+            else {
+              ac.push(a);
+              return ac;
+            }
+          }, []);
+
+        let promises = apiDiets.map((diet) =>
+          Diet.findOrCreate({
+            where: {
+              name: diet.toLowerCase(),
+            },
+            default: { name: diet.toLowerCase() },
+          }).then(([dt, created]) => dt)
+        );
+
+        await Promise.all(promises);
+      } else {
+        apiRecipes = [];
+      }
+
+      // Uniendo las dos busquedas en una sola variable
+
+      const allRecipes = [...recipe, ...apiRecipes];
+
+      if (allRecipes.length == 0) throw new Error(`${name} didn't found`);
+
+      return allRecipes;
+    } else {
+      // Buscando y editando los valores de la API
+
+      let apiRecipes = await fetch(
+        `https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=${API_KEY}`
+      ).then((res) => res.json());
+
+      if (Array.isArray(apiRecipes.results)) {
+        apiRecipes = apiRecipes.results.map((rec) => {
           return {
             ID: rec.id,
             name: rec.title,
@@ -189,90 +253,34 @@ const getRecipes = async (name) => {
                 };
               }),
           };
-        })
-        .filter((rec) => rec.name.toLowerCase().includes(name.toLowerCase()));
+        });
 
-      // Crear las dietas en la BD
+        // Crear las dietas en la BD
 
-      let apiDiets = apiRecipes
-        .map((dt) => dt.diets)
-        .flat()
-        .reduce((ac, a) => {
-          if (ac.includes(a)) return ac;
-          else {
-            ac.push(a);
-            return ac;
-          }
-        }, []);
+        let apiDiets = apiRecipes
+          .map((dt) => dt.diets)
+          .flat()
+          .reduce((ac, a) => {
+            if (ac.includes(a)) return ac;
+            else {
+              ac.push(a);
+              return ac;
+            }
+          }, []);
 
-      let promises = apiDiets.map((diet) =>
-        Diet.findOrCreate({
-          where: {
-            name: diet.toLowerCase(),
-          },
-          default: { name: diet.toLowerCase() },
-        }).then(([dt, created]) => dt)
-      );
+        let promises = apiDiets.map((diet) =>
+          Diet.findOrCreate({
+            where: {
+              name: diet.toLowerCase(),
+            },
+            default: { name: diet.toLowerCase() },
+          }).then(([dt, created]) => dt)
+        );
 
-      await Promise.all(promises);
-
-      // Uniendo las dos busquedas en una sola variable
-
-      const allRecipes = [...recipe, ...apiRecipes];
-
-      if (allRecipes.length == 0) throw new Error(`${name} didn't found`);
-
-      return allRecipes;
-    } else {
-      // Buscando y editando los valores de la API
-
-      let apiRecipes = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=${API_KEY}`
-      ).then((res) => res.json());
-
-      apiRecipes = apiRecipes.results.map((rec) => {
-        return {
-          ID: rec.id,
-          name: rec.title,
-          summary: rec.summary,
-          health_score: rec.healthScore,
-          image: rec.image,
-          diets: rec.diets,
-          steps: [...rec.analyzedInstructions]
-            .map((x) => x.steps)
-            .flat()
-            .map((st) => {
-              return {
-                number: st.number,
-                step: st.step,
-              };
-            }),
-        };
-      });
-
-      // Crear las dietas en la BD
-
-      let apiDiets = apiRecipes
-        .map((dt) => dt.diets)
-        .flat()
-        .reduce((ac, a) => {
-          if (ac.includes(a)) return ac;
-          else {
-            ac.push(a);
-            return ac;
-          }
-        }, []);
-
-      let promises = apiDiets.map((diet) =>
-        Diet.findOrCreate({
-          where: {
-            name: diet.toLowerCase(),
-          },
-          default: { name: diet.toLowerCase() },
-        }).then(([dt, created]) => dt)
-      );
-
-      await Promise.all(promises);
+        await Promise.all(promises);
+      } else {
+        apiRecipes = [];
+      }
 
       // Buscando y editando los valores de la BD
 
@@ -314,31 +322,41 @@ const getRecipes = async (name) => {
 const getRecipesComplex = async (ID, querys) => {
   try {
     if (!ID) throw new Error("ID not specified");
+
     let attributes = Object.keys(querys);
+
     if (attributes.length > 0) {
-      let search = await Recipe.findByPk(ID, {
-        attributes: attributes,
-        include: [
-          {
-            model: Diet,
-            through: { attributes: [] },
-          },
-        ],
-      });
+      if (attributes.includes("diets")) {
+        attributes = attributes.filter((at) => at !== "diets");
+        let search = await Recipe.findByPk(ID, {
+          attributes: attributes,
+          include: [
+            {
+              model: Diet,
+              through: { attributes: [] },
+            },
+          ],
+        });
 
-      if (!search) throw new Error("Recipe not found");
+        if (!search) throw new Error("Recipe not found");
 
-      search = {
-        name: search.name,
-        ID: search.ID,
-        summary: search.summary,
-        health_score: search.health_score,
-        steps: search.steps,
-        diets: search.diets.map((dt) => dt.name),
-        image: search.image,
-      };
+        let diets = search.diets.map((dt) => dt.name);
 
-      return search;
+        let ans = {
+          ...search.dataValues,
+          diets: diets,
+        };
+
+        return ans;
+      } else {
+        let search = await Recipe.findByPk(ID, {
+          attributes: attributes,
+        });
+
+        if (!search) throw new Error("Recipe not found");
+
+        return search;
+      }
     } else {
       let search = await Recipe.findByPk(ID, {
         include: [
